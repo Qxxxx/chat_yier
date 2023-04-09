@@ -1,7 +1,8 @@
 import React from "react";
 import { IconButton } from "./button";
 import GithubIcon from "../icons/github.svg";
-import { ISSUE_URL } from "../constant";
+import BilibiliIcon from "../icons/bilibili.svg";
+import { BILIBILI_URL } from "../constant";
 
 interface IErrorBoundaryState {
   hasError: boolean;
@@ -31,10 +32,10 @@ export class ErrorBoundary extends React.Component<any, IErrorBoundaryState> {
             <code>{this.state.info?.componentStack}</code>
           </pre>
 
-          <a href={ISSUE_URL} className="report">
+          <a href={BILIBILI_URL} className="report">
             <IconButton
               text="Report This Error"
-              icon={<GithubIcon />}
+              icon={<BilibiliIcon />}
               bordered
             />
           </a>

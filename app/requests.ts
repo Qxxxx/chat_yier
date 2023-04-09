@@ -1,6 +1,7 @@
 import type { ChatRequest, ChatReponse } from "./api/openai/typing";
 import { Message, ModelConfig, useAccessStore, useChatStore } from "./store";
 import { showToast } from "./components/ui-lib";
+import md5 from "spark-md5";
 
 const TIME_OUT_MS = 30000;
 
@@ -9,7 +10,7 @@ const makeRequestParam = (
   options?: {
     filterBot?: boolean;
     stream?: boolean;
-  }
+  },
 ): ChatRequest => {
   let sendMessages = messages.map((v) => ({
     role: v.role,
@@ -32,10 +33,7 @@ const makeRequestParam = (
 function getHeaders() {
   const accessStore = useAccessStore.getState();
   let headers: Record<string, string> = {};
-
-  if (accessStore.enabledAccessControl()) {
-    headers["access-code"] = accessStore.accessCode;
-  }
+  headers["access-code"] = md5.hash(accessStore.accessCode.trim());
 
   if (accessStore.token && accessStore.token.length > 0) {
     headers["token"] = accessStore.token;
@@ -84,7 +82,7 @@ export async function requestUsage() {
 
   const [used, subs] = await Promise.all([
     requestOpenaiClient(
-      `dashboard/billing/usage?start_date=${startDate}&end_date=${endDate}`
+      `dashboard/billing/usage?start_date=${startDate}&end_date=${endDate}`,
     )(null, "GET"),
     requestOpenaiClient("dashboard/billing/subscription")(null, "GET"),
   ]);
@@ -124,7 +122,7 @@ export async function requestChatStream(
     onMessage: (message: string, done: boolean) => void;
     onError: (error: Error, statusCode?: number) => void;
     onController?: (controller: AbortController) => void;
-  }
+  },
 ) {
   const req = makeRequestParam(messages, {
     stream: true,
@@ -213,7 +211,7 @@ export const ControllerPool = {
   addController(
     sessionIndex: number,
     messageId: number,
-    controller: AbortController
+    controller: AbortController,
   ) {
     const key = this.key(sessionIndex, messageId);
     this.controllers[key] = controller;

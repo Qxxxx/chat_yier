@@ -6,7 +6,7 @@ export function getAccessCodes(): Set<string> {
   try {
     const codes = (code?.split(",") ?? [])
       .filter((v) => !!v)
-      .map((v) => md5.hash(v.trim()));
+      .map((v) => md5.hash(md5.hash(v.trim())));
     return new Set(codes);
   } catch (e) {
     return new Set();

@@ -61,12 +61,7 @@ function PasswordInput(props: HTMLProps<HTMLInputElement>) {
 
   return (
     <div className={styles["password-input"]}>
-      <IconButton
-        icon={visible ? <EyeIcon /> : <EyeOffIcon />}
-        onClick={changeVisibility}
-        className={styles["password-eye"]}
-      />
-      <input {...props} type={visible ? "text" : "password"} />
+      <input {...props} type="text" />
     </div>
   );
 }
@@ -181,6 +176,25 @@ export function Settings(props: { closeSettings: () => void }) {
       </div>
       <div className={styles["settings"]}>
         <List>
+          {enabledAccessControl ? (
+            <SettingItem
+              title={Locale.Settings.AccessCode.Title}
+              subTitle={Locale.Settings.AccessCode.SubTitle}
+            >
+              <PasswordInput
+                value={accessStore.accessCode}
+                type="text"
+                placeholder={Locale.Settings.AccessCode.Placeholder}
+                onChange={(e) => {
+                  accessStore.updateCode(e.currentTarget.value);
+                }}
+              />
+            </SettingItem>
+          ) : (
+            <></>
+          )}
+        </List>
+        <List>
           <SettingItem title={Locale.Settings.Avatar}>
             <Popover
               onClose={() => setShowEmojiPicker(false)}
@@ -206,7 +220,7 @@ export function Settings(props: { closeSettings: () => void }) {
             </Popover>
           </SettingItem>
 
-          <SettingItem
+          {/* <SettingItem
             title={Locale.Settings.Update.Version(currentId)}
             subTitle={
               checkingUpdate
@@ -229,7 +243,7 @@ export function Settings(props: { closeSettings: () => void }) {
                 onClick={() => checkUpdate(true)}
               />
             )}
-          </SettingItem>
+          </SettingItem> */}
 
           <SettingItem title={Locale.Settings.SendKey}>
             <select
@@ -360,25 +374,7 @@ export function Settings(props: { closeSettings: () => void }) {
           </SettingItem>
         </List>
         <List>
-          {enabledAccessControl ? (
-            <SettingItem
-              title={Locale.Settings.AccessCode.Title}
-              subTitle={Locale.Settings.AccessCode.SubTitle}
-            >
-              <PasswordInput
-                value={accessStore.accessCode}
-                type="text"
-                placeholder={Locale.Settings.AccessCode.Placeholder}
-                onChange={(e) => {
-                  accessStore.updateCode(e.currentTarget.value);
-                }}
-              />
-            </SettingItem>
-          ) : (
-            <></>
-          )}
-
-          <SettingItem
+          {/* <SettingItem
             title={Locale.Settings.Token.Title}
             subTitle={Locale.Settings.Token.SubTitle}
           >
@@ -390,9 +386,9 @@ export function Settings(props: { closeSettings: () => void }) {
                 accessStore.updateToken(e.currentTarget.value);
               }}
             />
-          </SettingItem>
+          </SettingItem> */}
 
-          <SettingItem
+          {/* <SettingItem
             title={Locale.Settings.Usage.Title}
             subTitle={
               showUsage
@@ -414,7 +410,7 @@ export function Settings(props: { closeSettings: () => void }) {
                 onClick={checkUsage}
               />
             )}
-          </SettingItem>
+          </SettingItem> */}
 
           <SettingItem
             title={Locale.Settings.HistoryCount.Title}
@@ -456,7 +452,7 @@ export function Settings(props: { closeSettings: () => void }) {
         </List>
 
         <List>
-          <SettingItem title={Locale.Settings.Model}>
+          {/* <SettingItem title={Locale.Settings.Model}>
             <select
               value={config.modelConfig.model}
               onChange={(e) => {
@@ -474,7 +470,7 @@ export function Settings(props: { closeSettings: () => void }) {
                 </option>
               ))}
             </select>
-          </SettingItem>
+          </SettingItem> */}
           <SettingItem
             title={Locale.Settings.Temperature.Title}
             subTitle={Locale.Settings.Temperature.SubTitle}

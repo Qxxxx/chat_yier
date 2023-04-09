@@ -40,7 +40,7 @@ export function getLang(): Lang {
     return savedLang as Lang;
   }
 
-  const lang = getLanguage();
+  const lang = "cn";
 
   if (lang.includes("zh") || lang.includes("cn")) {
     return "cn";

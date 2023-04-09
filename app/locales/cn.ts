@@ -3,7 +3,8 @@ import { SubmitKey } from "../store/app";
 const cn = {
   WIP: "该功能仍在开发中……",
   Error: {
-    Unauthorized: "现在是未授权状态，请在设置页输入访问密码。",
+    Unauthorized:
+      "现在是未授权状态，请在设置页输入访问口令，有这个问题大概率是没有把视频看到最后哟。🤔",
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} 条对话`,
@@ -119,9 +120,9 @@ const cn = {
       NoAccess: "输入 API Key 或访问密码查看余额",
     },
     AccessCode: {
-      Title: "访问密码",
+      Title: "访问口令",
       SubTitle: "现在是未授权访问状态",
-      Placeholder: "请输入访问密码",
+      Placeholder: "请输入访问口令",
     },
     Model: "模型 (model)",
     Temperature: {
@@ -139,7 +140,7 @@ const cn = {
   },
   Store: {
     DefaultTopic: "新的聊天",
-    BotHello: "有什么可以帮你的吗",
+    BotHello: "感谢关注UP主 季得住！\n 有什么可以帮你的吗",
     Error: "出错了，稍后重试吧",
     Prompt: {
       History: (content: string) =>

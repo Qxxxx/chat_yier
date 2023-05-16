@@ -4,6 +4,7 @@ import "./styles/markdown.scss";
 import "./styles/highlight.scss";
 import process from "child_process";
 import { ACCESS_CODES, IS_IN_DOCKER } from "./api/access";
+import { Analytics } from "@vercel/analytics/react";
 
 let COMMIT_ID: string | undefined;
 try {
@@ -68,7 +69,10 @@ export default function RootLayout({
         ></link>
         <script src="/serviceWorkerRegister.js" defer></script>
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
